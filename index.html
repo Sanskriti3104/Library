@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Welcome to the Library</h1>
-    <script src="app.js"></script>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>My Digital Library</h1>
+            </div>
+
+            <div class="stats">
+                <div class="stats-card total-books">
+                    <i class="fas fa-book"></i>
+                    <div>
+                        <span class="stat-value" id="totalBooks">0</span>
+                        <p class="stat-label">Total Books</p>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <span class="stat-value" id="booksRead">0</span>
+                        <p class="stat-label">Books Read</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <!-- <script src="app.js"></script> -->
 </body>
+
 </html>
