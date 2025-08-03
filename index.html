@@ -35,6 +35,33 @@
             </div>
         </header>
     </div>
+     <div class="main-content">
+            <aside class="sidebar">
+                <h2>Add New Book</h2>
+                <form class="add-book-form" id="bookForm">
+                    <div class="form-group">
+                        <label for="book-title">Book Title</label>
+                        <input type="text" name="book-title" id="book-title" placeholder="Enter book title">
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" placeholder="Enter author name">
+                    </div>
+                    <div class="form-group">
+                        <label for="page-count">Page Count</label>
+                        <input type="number" name="page-count" id="page-count" placeholder="Enter page count">
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="read-status" id="read-status">
+                        <label for="read-status">I've read this book</label>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        Add to Library
+                    </button>
+                </form>
+            </aside>
+        </div>
     <!-- <script src="app.js"></script> -->
 </body>
 
