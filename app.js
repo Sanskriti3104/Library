@@ -1,7 +1,7 @@
 const myLibrary = [];
 
 function Book(title, author, pages, hasRead, uniqueId) {
-    if(!new.target){
+    if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor");
     }
 
@@ -13,31 +13,85 @@ function Book(title, author, pages, hasRead, uniqueId) {
 }
 
 const submitButton = document.querySelector(".submit-btn");
+const bookForm = document.getElementById("bookForm");
+const libraryContainer = document.getElementById("libraryContainer");
 const totalBooks = document.getElementById("totalBooks");
 const booksRead = document.getElementById("booksRead");
 
-submitButton.addEventListener("click", addBookToLibrary);
+function addBookToLibrary(title, author, pageCount, readStatus) {
+    let uniqueId = crypto.randomUUID();
 
-function addBookToLibrary(event) {
+    let newBook = new Book(title, author, pageCount, readStatus, uniqueId);
+    myLibrary.push(newBook);
+
+    updateStats();
+    displayBooks();
+}
+
+function updateStats() {
+    totalBooks.textContent = myLibrary.length;
+    booksRead.textContent = myLibrary.filter(book => book.hasRead === true).length;
+}
+
+function displayBooks() {
+    if (myLibrary.length == 0) {
+        libraryContainer.innerHTML = `<div class="empty-state">
+            <i class="fas fa-book"></i>
+            <h3>Your Library is empty</h3>
+            <p>Add your first book to get started! Click the form to the left to begin building your collection.
+            </p>
+        </div>`;
+        return;
+    }
+
+    libraryContainer.innerHTML = "";
+
+    myLibrary.forEach(book => {
+        let bookElement = document.createElement("div");
+        bookElement.classList.add("book-card");
+        const initials = book.title.split(' ').map(word => word[0]).join('').toUpperCase();
+        bookElement.innerHTML = `
+            <div class = "book-cover">${initials}</div>
+            <div class = "book-details">
+            <h3 class = "book-title">${book.title}</h3>
+            <p class = "book-author">${book.author}</p>
+            <div class = "book-meta">
+                <span>${book.pages} pages</span>
+                <span class = "book-status ${book.hasRead ? "Read" : "Not Read"}">${book.hasRead ? "Read" : "Not Read"}</span>
+            </div>
+            <div class="book-actions">
+                <button class="action-btn toggle-read-btn" onclick="toggleReadStatus('${book.uniqueId}')">
+                    <i class = "fas fa-book-open"></i>
+                    ${book.hasRead ? "Mark as Unread" : "Mark as Read"}
+                </button>
+                <button class="action-btn remove-btn" onclick="removeBook('${book.uniqueId}')">
+                    <i class="fas fa-trash-alt"></i>Remove
+                    </button>
+            </div>
+            </div>
+        `;
+        libraryContainer.appendChild(bookElement);
+    });
+}
+
+function toggleReadStatus(uniqueId) {
+
+}
+
+function removeBook(uniqueId) {
+
+}
+
+submitButton.addEventListener("click", function (event) {
     event.preventDefault();
     const bookTitle = document.getElementById("book-title").value;
     const author = document.getElementById("author").value;
     const pageCount = document.getElementById("page-count").value;
     const readStatus = document.getElementById("read-status").checked;
 
-    let uniqueId = crypto.randomUUID();
+    addBookToLibrary(bookTitle, author, pageCount, readStatus);
 
-    let newBook = new Book(bookTitle, author, pageCount, readStatus, uniqueId);
-    myLibrary.push(newBook);
-
-    let reads = 0;
-    for (let i = 0; i < myLibrary.length; i++) {
-        console.log(myLibrary[i]);
-        if (myLibrary[i].hasRead) {
-            reads++;
-        }
-    }
-
-    totalBooks.textContent = myLibrary.length;
-    booksRead.textContent = reads;
-}
+    //Reset form
+    bookForm.reset();
+    document.getElementById("book-title").focus();
+});
