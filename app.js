@@ -75,11 +75,21 @@ function displayBooks() {
 }
 
 function toggleReadStatus(uniqueId) {
-
+    const bookIndex = myLibrary.findIndex(book => book.uniqueId === uniqueId);
+    if(bookIndex !== -1){
+        myLibrary[bookIndex].hasRead = !myLibrary[bookIndex].hasRead;
+        updateStats();
+        displayBooks();
+    }
 }
 
 function removeBook(uniqueId) {
-
+    const bookIndex = myLibrary.findIndex(book => book.uniqueId === uniqueId);
+    if (bookIndex !== -1) {
+        myLibrary.splice(bookIndex, 1);
+        updateStats();
+        displayBooks();
+    }
 }
 
 submitButton.addEventListener("click", function (event) {
