@@ -33,6 +33,7 @@ function updateStats() {
     booksRead.textContent = myLibrary.filter(book => book.hasRead === true).length;
 }
 
+// Update your displayBooks() function to use the new HTML structure
 function displayBooks() {
     if (myLibrary.length == 0) {
         libraryContainer.innerHTML = `<div class="empty-state">
@@ -49,25 +50,32 @@ function displayBooks() {
     myLibrary.forEach(book => {
         let bookElement = document.createElement("div");
         bookElement.classList.add("book-card");
-        const initials = book.title.split(' ').map(word => word[0]).join('').toUpperCase();
+        bookElement.dataset.id = book.uniqueId;
+
+        const initials = book.title.split(' ').map(word => word[0]).join('').slice(0, 3).toUpperCase();
+
         bookElement.innerHTML = `
-            <div class = "book-cover">${initials}</div>
-            <div class = "book-details">
-            <h3 class = "book-title">${book.title}</h3>
-            <p class = "book-author">${book.author}</p>
-            <div class = "book-meta">
-                <span>${book.pages} pages</span>
-                <span class = "book-status ${book.hasRead ? "Read" : "Not Read"}">${book.hasRead ? "Read" : "Not Read"}</span>
+            <div class="book-cover">
+                <div class="cover-inner">${initials}</div>
             </div>
-            <div class="book-actions">
-                <button class="action-btn toggle-read-btn" onclick="toggleReadStatus('${book.uniqueId}')">
-                    <i class = "fas fa-book-open"></i>
-                    ${book.hasRead ? "Mark as Unread" : "Mark as Read"}
-                </button>
-                <button class="action-btn remove-btn" onclick="removeBook('${book.uniqueId}')">
-                    <i class="fas fa-trash-alt"></i>Remove
+            <div class="book-details">
+                <h3 class="book-title">${book.title}</h3>
+                <p class="book-author">${book.author}</p>
+                <div class="book-meta">
+                    <span><i class="fas fa-file-alt"></i> ${book.pages} pages</span>
+                    <span class="read-badge ${book.hasRead ? 'read' : 'not-read'}">
+                        ${book.hasRead ? 'Read' : 'Not Read'}
+                    </span>
+                </div>
+                <div class="book-actions">
+                    <button class="action-btn toggle-read-btn" onclick="toggleReadStatus('${book.uniqueId}')">
+                        <i class="fas ${book.hasRead ? 'fa-undo' : 'fa-check'}"></i>
+                        ${book.hasRead ? 'Mark Unread' : 'Mark Read'}
                     </button>
-            </div>
+                    <button class="action-btn delete-btn" onclick="removeBook('${book.uniqueId}')">
+                        <i class="fas fa-trash-alt"></i> Remove
+                    </button>
+                </div>
             </div>
         `;
         libraryContainer.appendChild(bookElement);
@@ -76,7 +84,7 @@ function displayBooks() {
 
 function toggleReadStatus(uniqueId) {
     const bookIndex = myLibrary.findIndex(book => book.uniqueId === uniqueId);
-    if(bookIndex !== -1){
+    if (bookIndex !== -1) {
         myLibrary[bookIndex].hasRead = !myLibrary[bookIndex].hasRead;
         updateStats();
         displayBooks();
@@ -105,3 +113,5 @@ submitButton.addEventListener("click", function (event) {
     bookForm.reset();
     document.getElementById("book-title").focus();
 });
+
+updateStats();
