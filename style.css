@@ -10,6 +10,7 @@
   --accent: #4895ef;
   --light: #f8f9fa;
   --dark: #212529;
+  --gray: #6c757d;
   --success: #4cc9f0;
   --danger: #f72585;
   --warning: #f8961e;
@@ -173,7 +174,148 @@ body {
 /* library */
 .library {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+.book-card {
+  background-color: var(--light);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.book-cover {
+  height: 180px;
+  background: linear-gradient(135deg, var(--accent), var(--info));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cover-inner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.book-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.book-title {
+  color: var(--dark);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.book-author {
+  color: var(--gray);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.book-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+  color: var(--gray);
+  margin-bottom: 1rem;
+  margin-top: auto;
+}
+
+.book-meta i {
+  margin-right: 5px;
+  color: var(--accent);
+}
+
+.read-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.read-badge.read {
+  background-color: rgba(76, 201, 240, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(76, 201, 240, 0.3);
+}
+
+.read-badge.not-read {
+  background-color: rgba(248, 150, 30, 0.1);
+  color: var(--warning);
+  border: 1px solid rgba(248, 150, 30, 0.3);
+}
+
+.book-actions {
+  display: flex;
+  gap:  0.75rem;
+  margin-top: 1.5rem;
+}
+
+.action-btn{
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.action-btn i {
+  font-size: 0.9rem;
+}
+
+.toggle-read-btn {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(67, 97, 238, 0.2);
+}
+
+.toggle-read-btn:hover {
+  background-color: rgba(67, 97, 238, 0.2);
+}
+
+.delete-btn {
+  background-color: rgba(247, 37, 133, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(247, 37, 133, 0.2);
+}
+
+.delete-btn:hover {
+  background-color: rgba(247, 37, 133, 0.2);
 }
 
 .empty-state {

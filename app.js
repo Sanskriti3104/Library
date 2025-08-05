@@ -60,7 +60,7 @@ function displayBooks() {
             </div>
             <div class="book-details">
                 <h3 class="book-title">${book.title}</h3>
-                <p class="book-author">${book.author}</p>
+                <p class="book-author">by ${book.author}</p>
                 <div class="book-meta">
                     <span><i class="fas fa-file-alt"></i> ${book.pages} pages</span>
                     <span class="read-badge ${book.hasRead ? 'read' : 'not-read'}">
